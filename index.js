@@ -5,9 +5,12 @@ const app = express()
 const PORT =3000
 const {mongoUrl} = require("./keys")
 
+ 
+
 
 
 require('./models/user');
+const requireToken = require('./middleware/requireToken')
 const authRoutes = require('./routes/authRoutes')
 app.use(bodyParser.json())
 app.use(authRoutes)
@@ -32,6 +35,10 @@ mongoose.connection.on('error',
     }
 )
 
+app.get('/',requireToken,(req,res)=>{
+    res.send("Your password is "+ req.user.pass)
+})
+
 app.listen(PORT,()=>{
-    console.log("server running" + PORT)
+    console.log("server running " + PORT)
 })
