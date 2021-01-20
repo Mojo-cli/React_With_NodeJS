@@ -37,7 +37,7 @@ router.post('/signin',async (req,res)=>{
         return res.status(422).send({error:"Must Provoide Email or Password "})
     }
     try{
-        await user.comparePass(pass);
+        await user.comparePassword(pass);
         const token = jwt.sign({userId:user._id},jwtkey)
         res.send({token})
     }catch(err){

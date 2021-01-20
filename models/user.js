@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
     email:{
@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
     }
 })
 
-userSchema.pre('save', function(){
+userSchema.pre('save', function(next){
     const user = this;
     if(!user.isModified('pass')){
         return next()
@@ -27,12 +27,12 @@ userSchema.pre('save', function(){
                 return next(err)
             }
             user.pass = hash;
-            return next();
+            next()
         })
     })
 })
 
-userSchema.methods.comparePass = function (candidatePass) {
+userSchema.methods.comparePassword = function (candidatePass) {
     const user = this;
     return new Promise((resolve,reject)=>{
         bcrypt.compare(candidatePass,user.pass,(err,isMatch)=>{
