@@ -10,10 +10,6 @@ const MainDash = (props) => {
             <Text style={{color:Colors.textColor}}>
                 Hello I am Dashboard Page!
             </Text>
-            <Button mode="contained" 
-                onPress={()=>{props.navigation.navigate('SignIn')}}>
-                Go To Sign Up Page!
-            </Button>
         </View>
     )
 }
